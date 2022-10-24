@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/function-component-definition */
 import React,{createContext,useContext,useEffect,useState} from 'react';
@@ -17,6 +18,7 @@ export const ProfileProvider = ({children}) => {
 
 
                 userRef = database.ref(`/profiles/${authObj.uid}`);
+                console.log(authObj);
                 userRef.on('value',snap =>{
                     const {name,createdAt} = snap.val();
                     const data = {

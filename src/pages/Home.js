@@ -1,9 +1,17 @@
+/* eslint-disable no-unreachable */
 import React from 'react'
+import { Col, Grid, Row, Sidebar } from 'rsuite'
 
 function Home() {
     return (
-        <div>Home</div>
-    )
+    <Grid fluid className="h-100">
+        <Row>
+            <Col xs={24} md={8}>
+                <Sidebar/>
+            </Col>
+        </Row>
+    </Grid>
+    );
 }
 
-export default Home
+export default Home;
