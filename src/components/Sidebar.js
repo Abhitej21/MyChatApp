@@ -10,7 +10,7 @@ function Sidebar() {
             </div>
                 bottom
         </div>
-    )
+    );
 }
 
 export default Sidebar;
