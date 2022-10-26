@@ -7,6 +7,7 @@ import AvatarEditor from 'react-avatar-editor';
 import { useProfile } from '../../context/profile.context';
 import { useModalState } from '../../misc/custom-hooks';
 import { database, storage } from '../../misc/firebase';
+import ProfileAvatar from '../ProfileAvatar';
 
 const acceptFileTypes = '.png, .jpeg, .jpg';
 
@@ -41,7 +42,8 @@ const AvatarUploadBtn = () => {
             if(currFiles.length === 1){
                 const file = currFiles[0];
                 if(isValid(file)){
-                    setImg(file)
+                    console.log('valid file');
+                    setImg(file);
                     open();
                 }
                 else{
@@ -59,7 +61,7 @@ const AvatarUploadBtn = () => {
                 cacheControl: `public, max-age=${3600 * 24 * 3}`
             });
             const URL = uploadAvatarResult.ref.getDownloadURL();
-            const avatarURL = database.ref(`/profiles/${profile.uid}`).child('avatar');
+            const avatarURL =  database.ref(`/profiles/${profile.uid}`).child('avatar');
             
             avatarURL.set(URL);
             setIsLoading(false);
@@ -73,6 +75,9 @@ const AvatarUploadBtn = () => {
 
   return (
     <div className='mt-3 text-center'>
+
+        <ProfileAvatar name={profile.name} src={profile.avatar} className="width-200 height-200 img-fullsize font-huge"/>
+
         <div>
            <label htmlFor="avatar-upload" className='d-block cursor-pointer padded'>
             Select new avatar 
