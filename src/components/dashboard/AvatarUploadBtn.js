@@ -38,7 +38,6 @@ const AvatarUploadBtn = () => {
     const [isLoading,setIsLoading] = useState(false);
     const onFileInputChange = (ev) => {
             const currFiles = ev.target.files;
-            console.log(currFiles);
             if(currFiles.length === 1){
                 const file = currFiles[0];
                 if(isValid(file)){
