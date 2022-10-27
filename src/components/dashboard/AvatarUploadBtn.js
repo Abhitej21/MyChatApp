@@ -59,8 +59,8 @@ const AvatarUploadBtn = () => {
             const uploadAvatarResult = await avatarFileRef.put(blob,{
                 cacheControl: `public, max-age=${3600 * 24 * 3}`
             });
-            const URL = uploadAvatarResult.ref.getDownloadURL();
-            const avatarURL =  database.ref(`/profiles/${profile.uid}`).child('avatar');
+            const URL = await uploadAvatarResult.ref.getDownloadURL();
+            const avatarURL = database.ref(`/profiles/${profile.uid}`).child('avatar');
             
             avatarURL.set(URL);
             setIsLoading(false);
