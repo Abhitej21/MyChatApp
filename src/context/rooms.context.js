@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/function-component-definition */
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { database } from '../misc/firebase';
@@ -11,10 +12,12 @@ export const RoomsProvider = ({children}) => {
         const roomListRef = database.ref('rooms');
 
         roomListRef.on('value',(snap) => {
-            const data = transformToArrWithId(snap);
+            const data = transformToArrWithId(snap.val());
             setRooms(data);
         });
-        return roomListRef.off();
+        return () => {
+        roomListRef.off()
+        };
     },[]);
 
     return <RoomsContext.Provider value={rooms}>{children}</RoomsContext.Provider>

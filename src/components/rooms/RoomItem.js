@@ -2,7 +2,9 @@ import React from 'react'
 import TimeAgo from 'timeago-react';
 
 function RoomItem({room}) {
-    const {createdAt,name} = room;
+    // eslint-disable-next-line no-console
+    
+    const {createdAt,name,description} = room;
     return (
         <div>
             <div className='d-flex justify-content-between align-items-center'>
@@ -11,7 +13,7 @@ function RoomItem({room}) {
             </div>
 
         <div className='d-flex align-items-center text-black-70'>
-            abc
+            {description}
         </div>
 
         </div>

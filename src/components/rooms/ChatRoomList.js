@@ -21,13 +21,13 @@ function ChatRoomList({aboveHeight}) {
             {!rooms && <Loader center vertical content="loading" speed="slow" size="md"/>}
                 
             {rooms && rooms.length>0 && rooms.map(room => {
-                return <>
+                return (<React.Fragment key={room.id}>
                 <Nav.Item componentClass={Link} 
                 to={`/chat/${room.id}`} 
                 key={room.id}
                 eventKey={`/chat/${room.id}`}> 
                 <RoomItem room={room}/>
-            </Nav.Item></>
+            </Nav.Item></React.Fragment>);
 })}
                 
                 
