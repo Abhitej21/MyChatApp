@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ButtonToolbar, Icon } from 'rsuite';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { useMediaQuery } from '../../../misc/custom-hooks';
+import EditRoomBtnDrawer from './EditRoomBtnDrawer';
 import RoomInfoBtnModal from './RoomInfoBtnModal';
 
 const Top = () => {
@@ -18,7 +19,9 @@ const Top = () => {
                 className={isMobile?'d-inline-block p-0 mr-2 text-blue link-unstyled':'d-none'}/>
                 <span className='text-disappear d-flex align-items-center'>{name}</span></h4>
 
-        <ButtonToolbar className='ws-nowrap'>todo</ButtonToolbar>
+        <ButtonToolbar className='ws-nowrap'>
+          <EditRoomBtnDrawer/>
+        </ButtonToolbar>
 
         </div>
         <div className='d-flex justify-content-between align-items-center'>
