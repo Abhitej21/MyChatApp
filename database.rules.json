@@ -11,7 +11,7 @@
         ".read": "auth !== null",
       "$room_id": {
         ".read": "auth !== null",
-        ".write": "!data.exists() || data.child('admins').child(auth.uid).val() == true",
+        ".write": "!data.exists() || data.child('admin').child(auth.uid).val() == true",
           "lastMessage": { 
             ".write": "auth !== null"
           }
