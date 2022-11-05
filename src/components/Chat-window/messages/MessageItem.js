@@ -7,10 +7,10 @@ import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
 import { auth } from '../../../misc/firebase';
 import Presence from '../../Presence';
 import ProfileAvatar from '../../ProfileAvatar';
-import HeartIcon from './HeartIcon';
+import IconMsg from './IconMsg';
 import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 
-function MessageItem({message,handleAdmin,handleLike}) {
+function MessageItem({message,handleAdmin,handleLike,handleDelete}) {
     
     const {author,createdAt,text,likes,likeCount} = message;
 
@@ -23,6 +23,9 @@ function MessageItem({message,handleAdmin,handleLike}) {
     const [selfRef,isHovered] = useHover();
     const canShowHeart = isMobile || isHovered;
     const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
+
+
+
     return (
         <li className={`padded mb-1 ${isHovered ? 'bg-black-02':''}`} ref={selfRef}>
             <div className='d-flex align-items-center font-bolder mb-1'>
@@ -36,13 +39,24 @@ function MessageItem({message,handleAdmin,handleLike}) {
                     </Button>}
                 </ProfileInfoBtnModal>
                 <TimeAgo datetime={createdAt} className="font-normal text-black-45 ml-2"/>
-                <HeartIcon 
+                <IconMsg 
                 {...(isLiked)?{color: "red"}:{}}
                 isVisible={canShowHeart}
                 iconName="heart"
                 tooltip="Like this message"
                 onClick={() => handleLike(message.id)}
                 badgeContent={likeCount}/>
+
+
+                {isAuthor && 
+                <IconMsg 
+                isVisible={canShowHeart}
+                iconName="close"
+                tooltip="Delete this message"
+                onClick={() => handleDelete(message.id)}
+                />}
+
+
             </div>
 
             <div>

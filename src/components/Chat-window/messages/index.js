@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-return */
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable react/function-component-definition */
 import React,{memo, useCallback, useEffect, useState} from 'react';
@@ -15,6 +17,33 @@ const Messages = () => {
   const isChatEmpty = messages && messages.length===0;
   const canShowMessages = messages && messages.length>0;
 
+
+
+  const handleDelete = useCallback(async (msgId) => {
+      if(!window.confirm("Delete this message")){
+        return;
+      }
+
+      const updates = {};
+      const isLast = messages[messages.length-1].id === msgId;
+      
+      updates[`/messages/${msgId}`] = null;
+      if(isLast && messages.length>1){
+          updates[`/rooms/${chatId}/lastMessage`] = {
+            ...messages[messages.length-2],
+            msgId: messages[messages.length-2].id,
+          }
+      }
+      if(isLast && messages.length===1){
+        updates[`/rooms/${chatId}/lastMessage`] = null;
+      }
+      try {
+        await database.ref().update(updates);
+        Alert.info('Message deleted',4000);
+      } catch (error) {
+        Alert.error(error.message,4000);
+      }
+  },[chatId,messages]);
 
   const handleAdmin = useCallback(async (uid) => {
     const adminsRef = database.ref(`/rooms/${chatId}/admin`);
@@ -82,7 +111,7 @@ const Messages = () => {
     <ul className='msg-list custom-scroll'>
       {isChatEmpty && <li>No messages yet</li>}
       {canShowMessages && messages.map(msg => <MessageItem key={msg.id}
-       message={msg} handleAdmin={handleAdmin} handleLike={handleLike}/>)}
+       message={msg} handleAdmin={handleAdmin} handleLike={handleLike} handleDelete={handleDelete}/>)}
     </ul>
   )
 }

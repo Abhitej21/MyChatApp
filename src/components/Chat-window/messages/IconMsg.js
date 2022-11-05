@@ -7,7 +7,7 @@ const ConditionalBadge = ({condition,children}) => {
     return condition?<Badge content={condition}>{children}</Badge>:children;
 };
 
-function HeartIcon({isVisible,tooltip,iconName,onClick,badgeContent,...props
+function IconMsg({isVisible,tooltip,iconName,onClick,badgeContent,...props
 }) {
     return (
         <div className='ml-2' style={{visibility: isVisible?'visible':'hidden'}}>
@@ -25,4 +25,4 @@ function HeartIcon({isVisible,tooltip,iconName,onClick,badgeContent,...props
     )
 }
 
-export default HeartIcon;
+export default IconMsg;
