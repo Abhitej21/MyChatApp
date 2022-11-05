@@ -19,8 +19,10 @@ const Messages = () => {
   const handleAdmin = useCallback(async (uid) => {
     const adminsRef = database.ref(`/rooms/${chatId}/admin`);
     console.log(adminsRef);
+     console.log(uid);
     let alertMsg;
     await adminsRef.transaction(admin => {
+      console.log(admin);
       if(admin){
       if(admin[uid]){
         admin[uid] = null;
