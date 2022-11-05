@@ -34,7 +34,7 @@ function Chat() {
 
     const {name,description} = currentRoom; 
     const currentRoomData = {
-        name,description,admins,isAdmin
+        name,description,admins,isAdmin 
     };
 
     return (
