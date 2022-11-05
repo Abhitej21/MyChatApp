@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable spaced-comment */
 import React, { useCallback, useRef, useState } from 'react'
 import firebase from 'firebase'
 import { Alert, Button, ControlLabel, Form, FormControl, FormGroup, Icon, Modal, Schema } from 'rsuite'
 import { useModalState } from '../../misc/custom-hooks';
-import { database } from '../../misc/firebase';
+import { auth, database } from '../../misc/firebase';
 
 
 const {StringType} = Schema.Types;
@@ -38,7 +39,10 @@ function CreateRoomBtnModal() {
         setIsLoading(true);
         const newRoomData = {
             ...form,
-            createdAt: firebase.database.ServerValue.TIMESTAMP
+            createdAt: firebase.database.ServerValue.TIMESTAMP,
+            admin: {
+                [auth.currentUser.uid] : true,
+            }
         }
         try {
           await  database.ref('rooms').push(newRoomData);

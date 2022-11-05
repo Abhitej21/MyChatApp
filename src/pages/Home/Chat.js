@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react'
 import { useParams } from 'react-router';
 import { Loader } from 'rsuite';
@@ -6,6 +7,8 @@ import Messages from '../../components/Chat-window/messages';
 import Top from '../../components/Chat-window/top';
 import { CurrentRoomProvider } from '../../context/current-room.context';
 import { useRooms } from '../../context/rooms.context';
+import { auth } from '../../misc/firebase';
+import { transformToArr } from '../../misc/helper';
 
 
 
@@ -26,9 +29,12 @@ function Chat() {
         return <h5 className='text-center mt-page'>Chat {chatId} not found</h5>
     }
 
+    const admins =  transformToArr(currentRoom.admin);
+    const isAdmin = admins.includes(auth.currentUser.uid);
+
     const {name,description} = currentRoom; 
     const currentRoomData = {
-        name,description,
+        name,description,admins,isAdmin
     };
 
     return (

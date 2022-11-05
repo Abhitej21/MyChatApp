@@ -27,7 +27,6 @@ function Presence({uid}) {
 
 
     const presence = usePresence(uid);
-    console.log(presence);
     return (
         <Whisper placement="top" trigger="hover" speaker={
             <Tooltip>

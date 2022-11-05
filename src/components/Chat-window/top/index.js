@@ -11,6 +11,7 @@ import RoomInfoBtnModal from './RoomInfoBtnModal';
 const Top = () => {
   const isMobile = useMediaQuery('(max-width: 992px');
   const name = useCurrentRoom(v => v.name);
+  const isAdmin = useCurrentRoom(v => v.isAdmin);
   return (
     <div>
         <div className='d-flex justify-content-between align-items-center'>
@@ -20,7 +21,7 @@ const Top = () => {
                 <span className='text-disappear d-flex align-items-center'>{name}</span></h4>
 
         <ButtonToolbar className='ws-nowrap'>
-          <EditRoomBtnDrawer/>
+          {isAdmin && <EditRoomBtnDrawer/>}
         </ButtonToolbar>
 
         </div>
