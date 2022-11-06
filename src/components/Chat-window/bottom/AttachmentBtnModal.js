@@ -9,7 +9,7 @@ import { storage } from '../../../misc/firebase';
 
 const MAX_FILE_SIZE = 1000*1024*5;
 
-const AttachmentBtnModal = () => {
+const AttachmentBtnModal = ({afterUpload}) => {
     const {isOpen,open,close} = useModalState();
     const [files,setFiles] = useState([]);
     const [isLoading,setIsLoading] = useState(false);
