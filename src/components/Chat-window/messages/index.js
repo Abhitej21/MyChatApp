@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-useless-return */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
@@ -5,7 +6,7 @@
 import React,{memo, useCallback, useEffect, useState} from 'react';
 import { useParams } from 'react-router';
 import { Alert } from 'rsuite';
-import { auth, database } from '../../../misc/firebase';
+import { auth, database, storage } from '../../../misc/firebase';
 import { transformToArrWithId } from '../../../misc/helper';
 import MessageItem from './MessageItem';
 
@@ -19,7 +20,7 @@ const Messages = () => {
 
 
 
-  const handleDelete = useCallback(async (msgId) => {
+  const handleDelete = useCallback(async (msgId,file) => {
       if(!window.confirm("Delete this message")){
         return;
       }
@@ -41,7 +42,15 @@ const Messages = () => {
         await database.ref().update(updates);
         Alert.info('Message deleted',4000);
       } catch (error) {
-        Alert.error(error.message,4000);
+        return Alert.error(error.message,4000);
+      }
+      if(file){
+        try {
+          const fileRef = storage.refFromURL(file.url);
+          await fileRef.delete();
+        } catch (error) {
+          return Alert.error(error.message,4000);
+        }
       }
   },[chatId,messages]);
 
