@@ -26,5 +26,5 @@ export const RoomsProvider = ({children}) => {
 
 
 export const useRooms = () => {
-   return useContext(RoomsContext)
+   return useContext(RoomsContext);
 };
